@@ -1,0 +1,45 @@
+.container {
+    display: grid;
+    grid-gap: 5px;
+    height: 100hv;
+    grid-template: "menu description description description"
+                   "menu formation formation formation" 
+                   "menu experience experience experience"
+                   "menu portfolio portfolio portfolio";
+    padding: 10px;
+}
+
+.menu {
+    grid-area: menu;
+    border: 1px solid red;
+    padding: 1.5em;
+}
+
+.description {
+    grid-area: description;
+    border: 1px solid red;
+    
+}
+
+.formation {
+    grid-area: formation;
+    border: 1px solid red;
+}
+
+.experience {
+    grid-area: experience;
+    border: 1px solid red;
+}
+
+.portfolio {
+    grid-area: portfolio;
+    border: 1px solid red;
+}
+
+.description,
+.formation,
+.experience,
+.portfolio {
+    margin-right: 20px;
+    /* padding: 1em; */
+}
