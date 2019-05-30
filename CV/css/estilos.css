@@ -1,45 +1,136 @@
+body {
+    background-color:#f0ece2;
+}
 .container {
     display: grid;
     grid-gap: 5px;
     height: 100hv;
-    grid-template: "menu description description description"
+    /* grid-template: "menu description description description"
                    "menu formation formation formation" 
                    "menu experience experience experience"
-                   "menu portfolio portfolio portfolio";
+                   "menu portfolio portfolio portfolio"; */
+    grid-template: repeat(4, auto) / 265px 1fr;
     padding: 10px;
 }
 
+.item {
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+}
 .menu {
     grid-area: menu;
-    border: 1px solid red;
-    padding: 1.5em;
+    padding: 1em;
+    display: inline-block;
+    justify-content: center;  
+    background-color: unset;  
 }
 
-.description {
-    grid-area: description;
-    border: 1px solid red;
-    
+.item:nth-child(1) {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
 }
 
-.formation {
-    grid-area: formation;
-    border: 1px solid red;
+.item:nth-child(2) {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
 }
 
-.experience {
-    grid-area: experience;
-    border: 1px solid red;
+.item:nth-child(3) {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
 
-.portfolio {
-    grid-area: portfolio;
-    border: 1px solid red;
+.item:nth-child(4) {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
 }
 
-.description,
-.formation,
-.experience,
-.portfolio {
-    margin-right: 20px;
-    /* padding: 1em; */
+.item:nth-child(5) {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 5;
+    justify-content: center;
+    box-sizing: content-box;
+}
+
+.image {
+    border-radius: 50%;
+}
+
+.portfolio-image img {
+    width: 200px;
+    height: 200px;
+}
+
+.portfolio-image {
+    display: grid;
+    grid-template: "image1 image2 image3 image4"
+                   "image5 image6 image7 image8";
+    justify-items: center;
+}
+
+.image cv {
+    grid-area: image1;
+}
+.image rompecabezas {
+    grid-area: image2;
+}
+.image pixel {
+    grid-area: image3;
+}
+.image zombie {
+    grid-area: image4;
+}
+.image recargado {
+    grid-area: image5;
+}
+.image mapa {
+    grid-area: image6;
+}
+.image peli {
+    grid-area: image7;
+}
+.image veo {
+    grid-area: image8;
+}
+
+
+.button {
+    display: flex;
+    margin: 5px;
+    border: none;
+    width: 220px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 30px;
+    background-color: #d6b99e;
+}
+
+.button p {
+    text-align: center;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0 0 .6rem 0;
+}
+
+.hr-punto  {
+    border-style: dotted;
+    color: brown;
 }
