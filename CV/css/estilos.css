@@ -6,10 +6,6 @@ body {
     display: grid;
     grid-gap: 5px;
     height: 100hv;
-    /* grid-template: "menu description description description"
-                   "menu formation formation formation" 
-                   "menu experience experience experience"
-                   "menu portfolio portfolio portfolio"; */
     grid-template: repeat(4, auto) / 265px 1fr;
     padding: 10px;
 }
@@ -67,9 +63,15 @@ body {
     border-radius: 50%;
 }
 
+.image-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .portfolio-image img {
-    width: 200px;
-    height: 200px;
+    width: 5rem;
+    height: 5rem;
 }
 
 .portfolio-image {
@@ -77,6 +79,7 @@ body {
     grid-template: "image1 image2 image3 image4"
                    "image5 image6 image7 image8";
     justify-items: center;
+
 }
 
 .image cv {
@@ -126,12 +129,6 @@ body {
     font-size: .9rem;
 }
 
-.presentation {
-
-
-    
-}
-
 h1,
 h2,
 h3,
@@ -145,4 +142,119 @@ p {
 .hr-punto  {
     border-style: dotted;
     color: brown;
+}
+
+@media screen and (max-width: 1024px){
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1em;
+    }
+}
+
+
+@media screen and (max-width: 767px){
+    h1 {
+        font-size: 1.2em;
+    }
+
+    h4 {
+        font-size: .8em;
+    }
+    p {
+        font-size: .8em;
+    }
+
+    .container {
+        grid-template: repeat(4, auto) / 40% 60%;
+    }
+
+    .image {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        justify-items: center;
+    }
+
+    .button{
+        width: auto;
+    }   
+
+    .portfolio-image {
+        display: grid;
+        grid-template: "image1 image2" 
+                        "image3 image4"
+                       "image5 image6"
+                        "image7 image8";
+        justify-items: center;
+    
+    }
+
+    .button p {
+        text-align: center;
+        margin: 0;
+        font-size: .5rem;
+    }
+
+    .image {
+        width: 7em;
+        height: 7em;
+        position: center;
+    }
+
+}
+
+@media screen and (max-width: 424px) {
+    h1 {
+        font-size: .9em;
+    }
+
+    h4 {
+        font-size: .2em;
+        box-sizing: content-box
+    }
+
+    h3 {
+        font-size: .5em;
+    }
+
+    p {
+        font-size: .5em;
+    }
+
+    .portfolio-image {
+        display: grid;
+        grid-template: "image1"
+                        "image2" 
+                        "image3"
+                        "image4"
+                       "image5"
+                       "image6"
+                        "image7"
+                        "image8";
+        justify-items: center;
+    }
+
+    .portfolio-image img {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .button p {
+        text-align: center;
+        margin: 0;
+        font-size: .5rem;
+    }
+
+    .image {
+        width: 5em;
+        height: 5em;
+        position: center;
+    }
+
+    .button {
+        width: auto;
+    }
 }
