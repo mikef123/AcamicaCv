@@ -12,11 +12,14 @@ window.onload = function () {
 
 
 //Funciones que tenes que completar
+
+
 function CalcularTransaccion(accion) {
-    swal("Digita la cantidad de dinero a depositar:", {
+    swal(`Digita la cantidad de dinero a ${accion}:`, {
         content: "input",
     })
         .then((value) => {
+            switch
             var saldoActual = saldoCuenta;
             saldoCuenta += parseInt(value);
             swal("Genial!", `Has depositado: $${value} 
@@ -42,7 +45,7 @@ function extraerDinero(dineroARetirar) {
 
 function depositarDinero() {
 
-    CalcularTransaccion('Depositar');
+    CalcularTransaccion('depositar');
 
 }
 
