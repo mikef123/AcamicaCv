@@ -35,7 +35,7 @@ const cuentasAmiga = [cuentaAmiga1, cuentaAmiga2];
 
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
-window.onload = function () {
+window.onload = function() {
     cargarNombreEnPantalla();
     actualizarSaldoEnPantalla();
     actualizarLimiteEnPantalla();
@@ -46,172 +46,128 @@ window.onload = function () {
 
 
 function CalcularTransaccion(accion) {
-    swal(`Digita la cantidad de dinero a ${accion}:`, {
-        content: "input",
-    })
-        .then((value) => {
-            switch (accion) {
-                case 'depositar':
-                    if ("" !== value) {
-                        var saldoActual = saldoCuenta;
-                        saldoCuenta += parseInt(value);
-                        limiteExtraccion = saldoCuenta * 0.9;
-                        swal("Genial!", `Has depositado: $${value} 
+    const value = prompt(`Digita la cantidad de dinero a ${accion}:`);
+
+    switch (accion) {
+        case 'depositar':
+            if ("" !== value) {
+                var saldoActual = saldoCuenta;
+                saldoCuenta += parseInt(value);
+                limiteExtraccion = saldoCuenta * 0.9;
+                swal("Genial!", `Has depositado: $${value} 
                         Saldo anterior: $${saldoActual} 
                         Saldo actual: $${saldoCuenta}`);
-                        actualizarSaldoEnPantalla();
-                        actualizarLimiteEnPantalla();
-                    } else {
-                        swal("Upss", "No has digitado ningún valor", "error");
-                    }
-                    break;
-                case 'retirar':
-                    if ("" !== value) {
-                        if (parseInt(value) <= saldoCuenta) {
-                            if (parseInt(value) <= limiteExtraccion) {
-                                if (parseInt(value) % 100 === 0) {
-                                    var saldoActual = saldoCuenta;
-                                    saldoCuenta -= parseInt(value);
-                                    limiteExtraccion = saldoCuenta * 0.9;
+                actualizarSaldoEnPantalla();
+                actualizarLimiteEnPantalla();
+            } else {
+                swal("Upss", "No has digitado ningún valor", "error");
+            }
+            break;
+        case 'retirar':
+            if ("" !== value) {
+                if (parseInt(value) <= saldoCuenta) {
+                    if (parseInt(value) <= limiteExtraccion) {
+                        if (parseInt(value) % 100 === 0) {
+                            var saldoActual = saldoCuenta;
+                            saldoCuenta -= parseInt(value);
+                            limiteExtraccion = saldoCuenta * 0.9;
 
-                                    swal("Genial!", `Has retirado: $${value} 
+                            swal("Genial!", `Has retirado: $${value} 
                                         Saldo anterior: $${saldoActual} 
                                         Saldo actual: $${saldoCuenta}`);
-                                    actualizarSaldoEnPantalla();
-                                    actualizarLimiteEnPantalla();
-                                } else {
-                                    swal("Upss", "Solo puedes extraer billetes de 100", "error");
-                                }
-                            } else {
-                                swal("Upss", "La cantidad a retirar es mayor al límite de extracción", "error");
-                            }
+                            actualizarSaldoEnPantalla();
+                            actualizarLimiteEnPantalla();
                         } else {
-                            swal("Upss", "La cantidad a retirar es mayor al saldo actual", "error");
+                            swal("Upss", "Solo puedes extraer billetes de 100", "error");
                         }
                     } else {
-                        swal("Upss", "No has digitado ningún valor", "error");
+                        swal("Upss", "La cantidad a retirar es mayor al límite de extracción", "error");
                     }
-                    break;
-                case 'transferir':
-                    debugger
-                    if ("" !== value) {
-                        if (parseInt(value) <= saldoCuenta) {
-                            if (parseInt(value) <= limiteExtraccion) {
-                                //transferirCuenta();
-
-                            }
-                            else {
-                                swal("Upss", "No se puede transferir esa cantidad de dinero", "error");
-                            }
-                        }
+                } else {
+                    swal("Upss", "La cantidad a retirar es mayor al saldo actual", "error");
+                }
+            } else {
+                swal("Upss", "No has digitado ningún valor", "error");
+            }
+            break;
+        case 'transferir':
+            if ("" !== value) {
+                if (parseInt(value) <= saldoCuenta) {
+                    if (parseInt(value) <= limiteExtraccion) {
+                        transferirCuenta(value);
                     } else {
-                        swal("Upss", "No has digitado ningún valor", "error");
-                    }
-                default:
-                    swal("Upss!", "No has seleccionado una opción correcta", "error");
-                    break;
-            }
-        });
-}
-
-async function transferirCuenta() {
-    const { value: cuenta } = await Swal.fire({
-        title: 'Digita la cuenta amiga a transferir de dinero',
-        input: 'text',
-        inputValue: inputValue,
-        showCancelButton: true,
-        inputValidator: (value) => {
-            if (!value) {
-                return 'You need to write something!'
-            }
-        }
-    })
-
-    switch (cuenta) {
-        case cuentasAmiga[0].numeroCuenta:
-            const { value: valorCuenta } = await Swal.fire({
-                title: `Digita el valor a transferir a tu amig@ ${cuentasAmiga[0].nombre}`,
-                input: 'text',
-                inputValue: inputValue,
-                showCancelButton: true,
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'You need to write something!'
+                        swal("Upss", "No se puede transferir esa cantidad de dinero", "error");
                     }
                 }
-            })
+            } else {
+                swal("Upss", "No has digitado ningún valor", "error");
+            }
+            break;
+        default:
+            swal("Upss!", "No has seleccionado una opción correcta", "error");
+            break;
+    }
+}
+
+function transferirCuenta(valorCuenta) {
+    let cuenta = prompt('Digita la cuenta amiga a transferir de dinero');
+    cuenta = parseInt(cuenta);
+    switch (cuenta) {
+        case cuentasAmiga[0].numeroCuenta:
             if ("" !== valorCuenta) {
                 if (parseInt(valorCuenta) <= saldoCuenta) {
-                    if (parseInt(cuenta) <= limiteExtraccion) {
+                    if (parseInt(valorCuenta) <= limiteExtraccion) {
                         var saldoActual = saldoCuenta;
                         saldoCuenta -= parseInt(valorCuenta);
                         limiteExtraccion = saldoCuenta * 0.9;
-                        swal("Genial!", `Has transferido: $${valorCuenta} 
-                                                                    Cuenta destino: ${cuentasAmiga[0].numeroCuenta}`);
+                        alert(`Has transferido: $${valorCuenta} \nCuenta destino: ${cuentasAmiga[0].numeroCuenta}`);
                         actualizarSaldoEnPantalla();
                         actualizarLimiteEnPantalla();
-                    }
-                    else {
+                    } else {
                         swal("Upss", "La cantidad a transferir es mayor al límite de extracción", "error");
                     }
-                }
-                else {
+                } else {
                     swal("Upss", "La cantidad a transferir es mayor al saldo actual", "error");
                 }
-            }
-            else {
+            } else {
                 swal("Upss", "No has digitado ningún valor", "error");
             }
             break;
         case cuentasAmiga[1].numeroCuenta:
-            const { value: valorCuentaAmigo } = await Swal.fire({
-                title: `Digita el valor a transferir a tu amig@ ${cuentasAmiga[1].nombre}`,
-                input: 'text',
-                inputValue: inputValue,
-                showCancelButton: true,
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'You need to write something!'
-                    }
-                }
-            })
-            if ("" !== valorCuentaAmigo) {
-                if (parseInt(valorCuentaAmigo) <= saldoCuenta) {
-                    if (parseInt(valorCuentaAmigo) <= limiteExtraccion) {
+            if ("" !== valorCuenta) {
+                if (parseInt(valorCuenta) <= saldoCuenta) {
+                    if (parseInt(valorCuenta) <= limiteExtraccion) {
                         var saldoActual = saldoCuenta;
-                        saldoCuenta -= parseInt(valorCuentaAmigo);
+                        saldoCuenta -= parseInt(valorCuenta);
                         limiteExtraccion = saldoCuenta * 0.9;
-                        swal("Genial!", `Has transferido: $${valorCuentaAmigo} 
+                        swal("Genial!", `Has transferido: $${valorCuenta} 
                                                                     Cuenta destino: $${cuentasAmiga[1].numeroCuenta}`);
                         actualizarSaldoEnPantalla();
                         actualizarLimiteEnPantalla();
-                    }
-                    else {
+                    } else {
                         swal("Upss", "La cantidad a transferir es mayor al límite de extracción", "error");
                     }
-                }
-                else {
+                } else {
                     swal("Upss", "La cantidad a transferir es mayor al saldo actual", "error");
                 }
-            }
-            else {
+            } else {
                 swal("Upss", "No has digitado ningún valor", "error");
             }
-    break;
+            break;
         default:
-    swal("Upss", "Has digitado un número de cuenta que no esta en tu lista de referidos", "error");
-    break;
-}
+            swal("Upss", "Has digitado un número de cuenta que no esta en tu lista de referidos", "error");
+            break;
+    }
 }
 
 function realizarPago() {
     swal("Servicios", "Ingresa el numero del servicio a pagar \n 1.agua - $3500 \n 2.telefono - $4250 \n 3.luz - $2100 \n 4.Internet - $5700", {
-        content: "input",
-    })
+            content: "input",
+        })
         .then((value) => {
             let servicio = parseInt(value);
             servicio -= 1;
-            debugger
+
             switch (servicio) {
                 case 0:
                     if (servicios[servicio].Precio <= saldoCuenta || servicios[servicio].Precio <= limiteExtraccion) {
@@ -281,7 +237,7 @@ function realizarPago() {
 }
 
 
-function cambiarLimiteDeExtraccion() { }
+function cambiarLimiteDeExtraccion() {}
 
 function extraerDinero(dineroARetirar) {
     CalcularTransaccion('retirar');
@@ -298,7 +254,6 @@ function pagarServicio() {
 }
 
 function transferirDinero() {
-    debugger
     CalcularTransaccion('transferir');
 }
 
