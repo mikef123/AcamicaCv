@@ -53,6 +53,33 @@ li::before {
   animation: fadein 2s;
 }
 
+#juego {
+  width: 600px;
+  height: 600px;
+}
+.fichas {
+  border: 1px solid blue;
+  width: 33%;
+  height: 33%;
+  float:left;
+}
+
+.fichas img {
+  width: 100%;
+  height: 100%;
+}
+
+#objetivo img{
+  width: 80%;
+  height: 80%;
+  margin-left: 10%;
+  
+}
+#objetivo {
+  margin-left: auto;
+  margin-right: auto; 
+  justify-content: center;
+}
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
