@@ -1,5 +1,5 @@
 // Arreglo que contiene las intrucciones del juego 
-var instrucciones = ["Ver el objetivo que se encuentra debajo de las instrucciones", "por medio de las teclas de dirección ir ubicando las fichas"];
+var instrucciones = ["El objetivo es armar el rompecabezas como se muestra en la siguiente imagen", "usando las teclas de navegacion para desplazar una ficha al espacio disponible en el tablero."];
 // Arreglo para ir guardando los movimientos que se vayan realizando
 var movimientos = [];
 
@@ -35,11 +35,11 @@ function AgregarUltimoMovimiento(movimiento) {
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
-  let valores = 0;
+  let valores = 1;
   let seCumple = true;
   for (let i = 0; i < grilla.length; i++) {
     for (let j = 0; j < grilla.length; j++) {
-      if (grilla[i][j] != valores) {
+      if (grilla[i][j] !== valores) {
         seCumple = false;
       }
       valores++;
@@ -50,7 +50,7 @@ function chequearSiGano() {
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
-  alert('Ganaste!!!')
+  swal("Felicidades!", "Completaste el rompecabezas!", "success");
 }
 
 /* Función que intercambia dos posiciones en la grilla.
@@ -71,13 +71,15 @@ function intercambiarPosicionesGrilla(filaPos1, columnaPos1, filaPos2, columnaPo
 
 // Actualiza la posición de la pieza vacía
 function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
-  //COMPLETAR
+   filaVacia = nuevaFila;
+   columnaVacia = nuevaColumna;
 }
 
 
 // Para chequear si la posicón está dentro de la grilla.
 function posicionValida(fila, columna) {
-  return (fila <= grilla.length && columna <= grilla.length)
+  debugger
+  return (0 <=fila && fila < grilla.length && 0 <=columna && columna< grilla.length)
 }
 
 /* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
@@ -85,7 +87,7 @@ Las direcciones están dadas por números que representa: arriba (38), abajo (40
 function moverEnDireccion(direccion) {
   var nuevaFilaPiezaVacia;
   var nuevaColumnaPiezaVacia;
-
+debugger
   // Mueve pieza hacia la abajo, reemplazandola con la blanca
   if (direccion === codigosDireccion.ABAJO) {
     nuevaFilaPiezaVacia = filaVacia - 1;
@@ -100,23 +102,24 @@ function moverEnDireccion(direccion) {
 
   // Mueve pieza hacia la derecha, reemplazandola con la blanca
   else if (direccion === codigosDireccion.DERECHA) {
-    //COMPLETAR
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia - 1;
   }
 
   // Mueve pieza hacia la izquierda, reemplazandola con la blanca
   else if (direccion === codigosDireccion.IZQUIERDA) {
-    // COMPLETAR
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia + 1;
   }
 
   /* A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
   Para que esta parte del código funcione correctamente deberás haber implementado 
   las funciones posicionValida, intercambiarPosicionesGrilla y actualizarPosicionVacia */
-
+debugger
   if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
     intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
     actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-
-    //COMPLETAR: Agregar la dirección del movimiento al arreglo de movimientos
+    AgregarUltimoMovimiento(direccion);
 
   }
 }
@@ -149,6 +152,7 @@ el intercambio en la pantalla (DOM). Para que funcione debera estar implementada
 la funcion intercambiarPosicionesGrilla() */
 function intercambiarPosiciones(fila1, columna1, fila2, columna2) {
   // Intercambio posiciones en la grilla
+  debugger
   var pieza1 = grilla[fila1][columna1];
   var pieza2 = grilla[fila2][columna2];
 
@@ -162,6 +166,7 @@ las fichas en la pantalla */
 
 function intercambiarPosicionesDOM(idPieza1, idPieza2) {
   // Intercambio posiciones en el DOM
+  debugger
   var elementoPieza1 = document.getElementById(idPieza1);
   var elementoPieza2 = document.getElementById(idPieza2);
 
@@ -243,7 +248,7 @@ function capturarTeclas() {
       if (gano) {
         setTimeout(function () {
           mostrarCartelGanador();
-        }, 500);
+        }, 200);
       }
       evento.preventDefault();
     }
