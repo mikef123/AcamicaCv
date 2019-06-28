@@ -47,13 +47,9 @@ colorPersonalizado.addEventListener('change',
 );
 
 paleta.addEventListener('click', modificarColor);
- grilla.addEventListener('mousedown', () => {
-  seleccionado = true;
- });
+ grilla.addEventListener('mousedown', () => {  seleccionado = true; });
 grilla.addEventListener('mouseover', rellenarGrilla);
-grilla.addEventListener('mouseup', ()=> {
-  seleccionado = false;
-});
+grilla.addEventListener('mouseup', ()=> {  seleccionado = false;});
 
 // recorre los colores y rellena la paleta de colores.
 function recorrerColores()
